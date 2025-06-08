@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Contact Us</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #89f7fe, #66a6ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-attachment: fixed;
+    }
+
+    .form-container {
+      backdrop-filter: blur(15px);
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 35px 40px;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+      width: 100%;
+      max-width: 500px;
+      color: #fff;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 25px;
+      color: #ffffff;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px 14px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 10px;
+      background: rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 15px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      background: rgba(255, 255, 255, 0.5);
+      outline: 2px solid #fff;
+    }
+
+    .error {
+      font-size: 13px;
+      color: #ffcccc;
+      margin-top: 3px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 20px;
+      border: none;
+      border-radius: 12px;
+      background: linear-gradient(to right, #6a11cb, #2575fc);
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.4s ease;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #2575fc, #6a11cb);
+      box-shadow: 0 0 15px #fff;
+    }
+
+    @media (max-width: 600px) {
+      .form-container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Contact Us</h2>
+    <form id="contactForm" onsubmit="return validateForm()">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" placeholder="Enter your name">
+      <div class="error" id="nameError"></div>
+
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" placeholder="Enter your email">
+      <div class="error" id="emailError"></div>
+
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" placeholder="Write your message" rows="4"></textarea>
+      <div class="error" id="messageError"></div>
+
+      <button type="submit">Send Message</button>
+    </form>
+  </div>
+
+  <script>
+    function validateForm() {
+      let name = document.getElementById("name").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let message = document.getElementById("message").value.trim();
+
+      let nameError = document.getElementById("nameError");
+      let emailError = document.getElementById("emailError");
+      let messageError = document.getElementById("messageError");
+
+      let isValid = true;
+
+      nameError.innerText = "";
+      emailError.innerText = "";
+      messageError.innerText = "";
+
+      if (name === "") {
+        nameError.innerText = "Please enter your name.";
+        isValid = false;
+      }
+
+      const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
+      if (email === "") {
+        emailError.innerText = "Please enter your email.";
+        isValid = false;
+      } else if (!email.match(emailPattern)) {
+        emailError.innerText = "Invalid email address.";
+        isValid = false;
+      }
+
+      if (message.length < 10) {
+        messageError.innerText = "Message must be at least 10 characters.";
+        isValid = false;
+      }
+
+      return isValid;
+    }
+  </script>
+</body>
+</html>
